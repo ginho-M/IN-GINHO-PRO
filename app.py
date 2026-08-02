@@ -997,7 +997,7 @@ BASE_TEMPLATE = """
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('settings') }}"><i class="fas fa-key"></i> {{ t('api_keys', lang=lang) }}</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}"><i class="fas fa-user"></i> {{ t('profile', lang=lang) }}</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('support') }}"><i class="fas fa-headset"></i> {{ t('support', lang=lang) }}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('design_factory.index') }}"><i class="fas fa-palette"></i> Design Factory</a></li>
+                    {# <li class="nav-item"><a class="nav-link" href="{{ url_for('design_factory.index') }}"><i class="fas fa-palette"></i> Design Factory</a></li> #}
                     {% if user and user.is_admin %}
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_panel') }}"><i class="fas fa-shield-alt"></i> {{ t('admin', lang=lang) }}</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_clients') }}"><i class="fas fa-users"></i> {{ t('clients', lang=lang) }}</a></li>
