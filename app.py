@@ -2067,9 +2067,8 @@ def update_app():
     return redirect(url_for('admin_panel'))
 
 # ==================== DESIGN FACTORY ====================
-from modules.design_factory.routes import design_factory_bp
-app.register_blueprint(design_factory_bp)
-
+# from modules.design_factory.routes import design_factory_bp
+# app.register_blueprint(design_factory_bp)
 # ==================== LANCEMENT ====================
 if __name__ == '__main__':
     print("🚀 GOD MODE ACTIVÉ – IN-GINHO Ai Studio Pro ULTIMATE")
