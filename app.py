@@ -2070,7 +2070,36 @@ def update_app():
     else:
         flash('✅ Vous êtes déjà à jour.', 'info')
     return redirect(url_for('admin_panel'))
+# ============================================================
+# PONT REACT + FLASK (MODE FUSION TOTALE)
+# ============================================================
+import os
+from flask import send_from_directory
 
+# Chemin où on va déposer le build de ton application React
+REACT_BUILD_FOLDER = 'static'
+
+@app.route('/api/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def catch_all_api(path):
+    # Cette route est juste un garde-fou : elle ne fait rien si la route API existe déjà.
+    # Mais elle permet de voir que tout passe bien par Flask.
+    return jsonify({"error": "Endpoint non trouvé, mais le pont est actif."}), 404
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_react_app(path):
+    # Si la route demandée est une vraie route Flask (comme /dashboard ou /login),
+    # on laisse Flask la gérer. Sinon, on sert React.
+    if path.startswith('api/') or path.startswith('static/'):
+        return send_from_directory('static', path) if path else send_from_directory('static', 'index.html')
+    
+    # Vérifie si le fichier existe dans le dossier static (images, css, etc.)
+    if path != "" and os.path.exists(os.path.join(REACT_BUILD_FOLDER, path)):
+        return send_from_directory(REACT_BUILD_FOLDER, path)
+    
+    # Pour toutes les autres routes (comme /dashboard React, /clients, etc.),
+    # on renvoie le fichier index.html de React pour que le routage React prenne le relais.
+    return send_from_directory(REACT_BUILD_FOLDER, 'index.html')
 # ==================== DESIGN FACTORY ====================
 # from modules.design_factory.routes import design_factory_bp
 # app.register_blueprint(design_factory_bp)
