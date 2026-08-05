@@ -45,7 +45,7 @@ else:
 # ==================== CONFIGURATION ====================
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///inginho_final.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///inginho_final.db?check_same_thread=False'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -2075,6 +2075,7 @@ def update_app():
 # from modules.design_factory.routes import design_factory_bp
 # app.register_blueprint(design_factory_bp)
 # ==================== LANCEMENT ====================
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 10, 'pool_recycle': 3600}
 if __name__ == '__main__':
     print("🚀 GOD MODE ACTIVÉ – IN-GINHO Ai Studio Pro ULTIMATE")
     print("🎨 DESIGN NOIR & ORANGE – Version Cyber Premium")
